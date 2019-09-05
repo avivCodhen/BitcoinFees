@@ -9,6 +9,17 @@ a.navbar-brand {
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
+.bg-main {
+    background: #f7931a;
+}
+
+.border-main {
+    border: 1px solid #f7931a;
+}
+.color-main {
+    color: #f7931a;
+}
 html {
   font-size: 14px;
 }
