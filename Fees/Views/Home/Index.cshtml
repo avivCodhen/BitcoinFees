@@ -1,0 +1,42 @@
+﻿@model BitCoinFee
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    .fee-card p{
+        margin-bottom: 5px;
+    }
+    .fee-card label {
+        margin: 0;
+    }
+</style>
+<div class="container my-5">
+    <div class="text-center">
+        <h1 class="display-4 text-white">ביטקוין עמלות</h1>
+        <p class="text-white">.מצא את העמלה הנמוכה ביותר לאישור הטרנזקציה שלך</p>
+        
+        <div class="row fee-card d-flex justify-content-center mt-5">
+
+            <div class="col-2">
+                <div class="card p-3 text-center">
+                    <p>~ שעה</p>
+                    <label class="font-weight-bold">@(Model.HourFee * 250)</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card p-3 text-center">
+                    <p>הכי מהיר</p>
+                    <label class="font-weight-bold">@(Model.FastestFee*250)</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card p-3 text-center">
+                    <p>~ חצי שעה</p>
+                    <label class="font-weight-bold">@(Model.HalfHourFee * 250)</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
