@@ -14,98 +14,162 @@
     }
 
     .fee-card label {
-        margin: 0;
-    }
-
-    .fee-card label {
-        margin-bottom: 5px;
+        margin-bottom: 10px;
         font-size: 14px;
     }
+
     .fee-card span {
-        padding-left:8px;
-        padding-right:8px;
+        padding-left: 8px;
+        padding-right: 8px;
         color: white;
         border-radius: 20px;
         background: #6c757d;
     }
+
+    .segwit-inactive {
+        padding: 10px 29px;
+        color: white;
+        background: #f7931a;
+        border: 1px solid white;
+    }
+
+    .segwit-inactive:hover {
+        padding: 10px 29px;
+        background: white;
+        border: none;
+        color: #f7931a;
+    }
+    .segwit-active {
+        padding: 10px 29px;
+        background: white;
+        border: none;
+        color: #f7931a;
+    }
 </style>
 <div class="bg-main" style="direction: rtl;">
-    
+
     <div class="container pt-5 pb-1">
         <div class="text-center">
-            <h1 class="display-4 text-white"> עמלות העברה בביטקוין</h1>
-            <h5 class="text-white mb-0" style="font-weight: 300;"> מחיר כניסה לבלוק</h5>
-            
+            <div data-aos="fade-up text-center">
+                <h1 class="display-4 text-white" > עמלות העברה בביטקוין</h1>
+                <h5 class="text-white mb-0" style="font-weight: 300;"> מחיר כניסה לבלוק</h5>
+
+            </div>
+           
             <div class="mt-4">
-                <div class="checkbox">
-                    <label><input id="segWit" type="checkbox" value="@Model.IsSegwit">סגוויט</label>
-                </div>
+                <button id="toggleSegwitLegacy" class="btn segwit-inactive">סגוויט</button>
             </div>
 
-            <div class="row no-gutters fee-card d-flex justify-content-center mt-4 mb-3">
-                
-                <div class="col-10 col-lg-3 p-2">
-                    <div class="card p-2 text-center shadow-lg">
-                        <p>@Model.BlockFees[0].NumBlock בלוקים ~20 דקות </p>
-                        <label>Satoshi Per byte: @(Model.BlockFees[0].SatoshiPerByte * 100000)</label>
-                        <label class=""><span>@( @Model.BlockFees[0].Btc)</span>&emsp;<i class="fab fa-bitcoin"></i></label>
-                        <label class=""><span>@( @Model.BlockFees[0].Dollar)</span>&emsp;<i class="fas fa-dollar-sign"></i></label>
-                        <label class=""><span>@( @Model.BlockFees[0].Nis)</span>&emsp;<i class="fas fa-shekel-sign"></i></label>
-                    </div>
-                </div>
-
-                <div class="col-10 col-lg-3 p-2">
-                    <div class="card p-2 text-center ">
-                        <div class="d-flex justify-content-center">
-                            <p>@Model.BlockFees[1].NumBlock בלוקים ~שעה </p>
+            <div id="legacy" style="">
+                <div class="row no-gutters fee-card d-flex justify-content-center mt-4 mb-3">
+                    <div class="col-10 col-lg-3 p-2"  data-aos="fade-right">
+                        <div class="card p-2 text-center shadow-lg">
+                            <p>@Model.BlockFees[0].NumBlock בלוקים ~20 דקות </p>
+                            <label>Satoshi Per byte: @(Model.BlockFees[0].SatoshiPerByte * 100000)</label>
+                            <label class=""><span>@(@Model.BlockFees[0].Btc)</span>&emsp;<i class="fab fa-bitcoin"></i></label>
+                            <label class=""><span>@(@Model.BlockFees[0].Dollar)</span>&emsp;<i class="fas fa-dollar-sign"></i></label>
+                            <label class=""><span>@(@Model.BlockFees[0].Nis)</span>&emsp;<i class="fas fa-shekel-sign"></i></label>
                         </div>
-                        <label>Satoshi Per byte: @(Model.BlockFees[1].SatoshiPerByte * 100000)</label>
-                        <label class=""><span>@( @Model.BlockFees[1].Btc)</span>&emsp;<i class="fab fa-bitcoin"></i></label>
-                        <label class=""><span>@( @Model.BlockFees[1].Dollar)</span>&emsp;<i class="fas fa-dollar-sign"></i></label>
-                        <label class=""><span>@( @Model.BlockFees[1].Nis)</span>&emsp;<i class="fas fa-shekel-sign"></i></label>
+                    </div>
+
+                    <div class="col-10 col-lg-3 p-2" data-aos="fade-up">
+                        <div class="card p-2 text-center ">
+                            <div class="d-flex justify-content-center">
+                                <p>@Model.BlockFees[1].NumBlock בלוקים ~שעה </p>
+                            </div>
+                            <label>Satoshi Per byte: @(Model.BlockFees[1].SatoshiPerByte * 100000)</label>
+                            <label class=""><span>@(@Model.BlockFees[1].Btc)</span>&emsp;<i class="fab fa-bitcoin"></i></label>
+                            <label class=""><span>@(@Model.BlockFees[1].Dollar)</span>&emsp;<i class="fas fa-dollar-sign"></i></label>
+                            <label class=""><span>@(@Model.BlockFees[1].Nis)</span>&emsp;<i class="fas fa-shekel-sign"></i></label>
+                        </div>
+                    </div>
+                    <div class="col-10 col-lg-3 p-2 " data-aos="fade-left">
+                        <div class="card p-2 text-center ">
+                            <p>@Model.BlockFees[2].NumBlock בלוקים ~8 שעות </p>
+                            <label>Satoshi Per byte: @(Model.BlockFees[2].SatoshiPerByte * 100000)</label>
+                            <label class=""><span>@(@Model.BlockFees[2].Btc)</span>&emsp;<i class="fab fa-bitcoin"></i></label>
+                            <label class=""><span>@(@Model.BlockFees[2].Dollar)</span>&emsp;<i class="fas fa-dollar-sign"></i></label>
+                            <label class=""><span>@(@Model.BlockFees[2].Nis)</span>&emsp;<i class="fas fa-shekel-sign"></i></label>
+                        </div>
                     </div>
                 </div>
-                <div class="col-10 col-lg-3 p-2">
-                    <div class="card p-2 text-center ">
-                        <p>@Model.BlockFees[2].NumBlock בלוקים ~8 שעות </p>
-                        <label>Satoshi Per byte: @(Model.BlockFees[2].SatoshiPerByte * 100000)</label>
-                        <label class=""><span>@( @Model.BlockFees[2].Btc)</span>&emsp;<i class="fab fa-bitcoin"></i></label>
-                        <label class=""><span>@( @Model.BlockFees[2].Dollar)</span>&emsp;<i class="fas fa-dollar-sign"></i></label>
-                        <label class=""><span>@(  @Model.BlockFees[2].Nis)</span>&emsp;<i class="fas fa-shekel-sign"></i></label>
-                    </div>
-                </div>
+
             </div>
 
+            <div id="segwit" style="display: none;">
+                <div class="row no-gutters fee-card d-flex justify-content-center mt-4 mb-3" id="segwit" style="display: none;">
+                    <div class="col-10 col-lg-3 p-2">
+                        <div class="card p-2 text-center shadow-lg">
+                            <p>@Model.BlockFees[0].NumBlock בלוקים ~20 דקות </p>
+                            <label>Satoshi Per byte: @(Model.BlockFees[0].SatoshiPerByte * 100000)</label>
+                            <label class=""><span>@(@Model.BlockFees[0].BtcSegwit)</span>&emsp;<i class="fab fa-bitcoin"></i></label>
+                            <label class=""><span>@(@Model.BlockFees[0].DollarSegwit)</span>&emsp;<i class="fas fa-dollar-sign"></i></label>
+                            <label class=""><span>@(@Model.BlockFees[0].NisSegwit)</span>&emsp;<i class="fas fa-shekel-sign"></i></label>
+                        </div>
+                    </div>
+
+                    <div class="col-10 col-lg-3 p-2">
+                        <div class="card p-2 text-center ">
+                            <div class="d-flex justify-content-center">
+                                <p>@Model.BlockFees[1].NumBlock בלוקים ~שעה </p>
+                            </div>
+                            <label>Satoshi Per byte: @(Model.BlockFees[1].SatoshiPerByte * 100000)</label>
+                            <label class=""><span>@(@Model.BlockFees[1].BtcSegwit)</span>&emsp;<i class="fab fa-bitcoin"></i></label>
+                            <label class=""><span>@(@Model.BlockFees[1].DollarSegwit)</span>&emsp;<i class="fas fa-dollar-sign"></i></label>
+                            <label class=""><span>@(@Model.BlockFees[1].NisSegwit)</span>&emsp;<i class="fas fa-shekel-sign"></i></label>
+                        </div>
+                    </div>
+                    <div class="col-10 col-lg-3 p-2">
+                        <div class="card p-2 text-center ">
+                            <p>@Model.BlockFees[2].NumBlock בלוקים ~8 שעות </p>
+                            <label>Satoshi Per byte: @(Model.BlockFees[2].SatoshiPerByte * 100000)</label>
+                            <label class=""><span>@(@Model.BlockFees[2].BtcSegwit)</span>&emsp;<i class="fab fa-bitcoin"></i></label>
+                            <label class=""><span>@(@Model.BlockFees[2].DollarSegwit)</span>&emsp;<i class="fas fa-dollar-sign"></i></label>
+                            <label class=""><span>@(@Model.BlockFees[2].Nis)</span>&emsp;<i class="fas fa-shekel-sign"></i></label>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
             <p class="text-white font-italic" style="font-size: 14px;">*העמלות המופיעות למעלה הינן לטרנזקציה בעלת 1 קלט 2 פלט</p>
 
         </div>
-   
+
 
     </div>
 
+
 </div>
+
 <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100px; width: 100%;">
-    <path d="M0.00,92.27 C216.83,192.92 304.30,8.39 500.00,109.03 L500.00,0.00 L0.00,0.00 Z" style="stroke: none;fill: #f7931a;"></path>
+    <path d="M0.00,92.27 C216.83,192.92 304.30,8.39 500.00,109.03 L500.00,0.00 L0.00,0.00 Z" style="stroke: none; fill: #f7931a;"></path>
 </svg>
 
-<div class="bg-white" style="height: 200px;margin-top: -73px;">
+<div class="bg-white" style="height: 200px; margin-top: -73px;">
     <div class="row d-flex justify-content-center">
         <button class="btn bg-white color-main border-main p-3">הגדרות מתקדמות</button>
     </div>
 </div>
 
-@section Scripts{ 
+@section Scripts{
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script
+        src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
     <script>
-        $(function() {
-            $('#segWit').on('click', function() {
-                $.ajax({
-                    url: "@Url.Action("Index","Home", new{isSegwit = Model.IsSegwit})",
-                    type: 'GET',
-                    success: function(res) {
-                    }
+        $(function () {
+            AOS.init();
+            var toggled = true;
+            $('#toggleSegwitLegacy').on('click',
+                function () {
+                    $('#segwit').toggle();
+                    $('#legacy').toggle();
+                    $(this).toggleClass('segwit-inactive segwit-active');
+                    $(this).blur();
                 });
-            });
         });
     </script>
-    
+
 }

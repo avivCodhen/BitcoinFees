@@ -16,17 +16,9 @@ namespace Fees.Controllers
     {
         private const int SatoshiDivideToBtc = 100000000;
 
-        public async Task<IActionResult> Index(bool isSegwit = false)
+        public async Task<IActionResult> Index()
         {
-            int multiplier;
-            if (isSegwit)
-            {
-                multiplier = 147;
-            }
-            else
-            {
-                multiplier = 226;
-            }
+     
             var httpClient = new HttpClient();
             var blocks = new[] {2, 6, 48};
             var list = new List<BlockFee>();
@@ -35,7 +27,8 @@ namespace Fees.Controllers
                 var response = await httpClient.GetAsync($"https://estimatefee.com/n/{block}");
                 var results = await response.Content.ReadAsStringAsync();
                 var satoshiPerByte = float.Parse(results, CultureInfo.InvariantCulture.NumberFormat);
-                var btc = (satoshiPerByte* 100000 * multiplier)/100000000;
+                var btc = (satoshiPerByte* 100000 * 226)/100000000;
+                var btcSegwit = (satoshiPerByte* 100000 * 146)/100000000;
                 var btcResponse = await httpClient.GetAsync("https://blockchain.info/ticker");
                 var btcResults = await btcResponse.Content.ReadAsAsync<BitCoinFee>();
                 var nisResponse = await httpClient.GetAsync("https://api.exchangeratesapi.io/latest");
@@ -44,11 +37,14 @@ namespace Fees.Controllers
                 list.Add(new BlockFee(){NumBlock = block,
                     SatoshiPerByte = satoshiPerByte,
                     Btc = btc.ToString("F6").TrimEnd('0'),
+                    BtcSegwit = btcSegwit.ToString("F6").TrimEnd('0'),
+                    DollarSegwit = (btcResults.USD.last*btcSegwit).ToString("F6").TrimEnd('0'),
                     Dollar = (btcResults.USD.last*btc).ToString("F6").TrimEnd('0'),
-                    Nis = (nisResults.rates.ILS * btcResults.USD.last * btc).ToString("F6").TrimEnd('0')
+                    Nis = (nisResults.rates.ILS * btcResults.USD.last * btc).ToString("F6").TrimEnd('0'),
+                    NisSegwit = (nisResults.rates.ILS * btcResults.USD.last * btcSegwit).ToString("F6").TrimEnd('0')
                 });
             }
-            return View(new IndexViewModel(){BlockFees = list ,IsSegwit = isSegwit});
+            return View(new IndexViewModel(){BlockFees = list});
         }
         public IActionResult Privacy()
         {
